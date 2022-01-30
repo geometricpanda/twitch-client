@@ -1,0 +1,2 @@
+@custom-media --viewport-sm (width > 40em);
+@custom-media --viewport-lg (width > 60em):

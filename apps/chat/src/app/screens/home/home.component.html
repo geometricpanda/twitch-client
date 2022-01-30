@@ -1,0 +1,30 @@
+<form [formGroup]="form" (ngSubmit)="doSubmit()">
+  <main class="stream-box">
+
+    <div class="stream-box__question">
+
+      <label for="twitch-id"
+             text
+             size="lg">
+        Which stream do you want to watch?
+      </label>
+
+      <input class="stream-box__question-input"
+             formControlName="stream"
+             autocomplete="off"
+             [attr.aria-describedby]="stream?.invalid && stream?.touched ? 'errors' : null"
+             id="twitch-id"
+             type="text">
+
+      <div id="errors" *ngIf="stream?.invalid && stream?.touched">
+        <p text size="md" state="error">Please enter a value</p>
+      </div>
+
+    </div>
+
+    <div class="stream-box__submit">
+      <button button type="submit">OK</button>
+    </div>
+
+  </main>
+</form>

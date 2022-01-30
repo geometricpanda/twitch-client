@@ -1,0 +1,59 @@
+:host(.text) {
+  font-family: var(--font-family);
+  font-weight: normal;
+  color: var(--color-light);
+}
+
+:host(.text--size-sm) {
+  font-size: var(--font-size-sm);
+  line-height: calc(var(--font-size-sm) * 1.2);
+}
+
+:host(.text--size-md) {
+  font-size: var(--font-size-md);
+  line-height: calc(var(--font-size-md) * 1.2);
+}
+
+:host(.text--size-lg) {
+  font-size: var(--font-size-lg);
+  line-height: calc(var(--font-size-lg) * 1.4);
+}
+
+:host(.text--size-xl) {
+  font-size: var(--font-size-xl);
+  line-height: calc(var(--font-size-xl) * 1.4);
+}
+
+:host(.text--size-xxl) {
+  font-size: var(--font-size-xxl);
+  line-height: calc(var(--font-size-xxl) * 1.4);
+}
+
+:host(.text--weight-light) {
+  font-weight: 300;
+}
+
+:host(.text--weight-regular) {
+  font-weight: 400;
+}
+
+:host(.text--weight-medium) {
+  font-weight: 500;
+}
+
+:host(.text--weight-semi-bold) {
+  font-weight: 600;
+}
+
+:host(.text--weight-bold) {
+  font-weight: 600;
+}
+
+:host(.text--margin-bottom) {
+  margin-bottom: 2rem;
+}
+
+
+:host(.text--state-error) {
+  color: var(--color-red)
+}
