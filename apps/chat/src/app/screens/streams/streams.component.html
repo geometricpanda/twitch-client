@@ -1,0 +1,25 @@
+<nav class="buttons" aria-label="Stream Controls">
+  <button button round (click)="openAddStream()" aria-label="Add New Stream">
+    <fa-icon [icon]="faPlus"></fa-icon>
+  </button>
+
+  <button button round state="error" (click)="removeStream()" [disabled]="disableClose" aria-label="Close Current Stream">
+    <fa-icon [icon]="faBan"></fa-icon>
+  </button>
+
+  <button button round state="warning" (click)="scrollToBottom()" aria-label="Scroll to Bottom">
+    <fa-icon [icon]="faAngleDoubleDown"></fa-icon>
+  </button>
+</nav>
+
+<twitch-client-frame>
+
+  <twitch-client-stream-list></twitch-client-stream-list>
+  <twitch-client-stream [streamId]="activeId | async" [pause]="pause"></twitch-client-stream>
+
+</twitch-client-frame>
+
+
+<twitch-client-modal>
+  <twitch-client-add-stream (done)="closeAddStream()"></twitch-client-add-stream>
+</twitch-client-modal>

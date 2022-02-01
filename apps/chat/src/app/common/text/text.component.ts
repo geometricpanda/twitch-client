@@ -73,6 +73,16 @@ export class TextComponent {
     return this.state === 'error';
   }
 
+  @HostBinding('class.text--state-success')
+  get hostClassTextStateSuccess(): boolean {
+    return this.state === 'success';
+  }
+
+  @HostBinding('class.text--state-mute')
+  get hostClassTextStateMute(): boolean {
+    return this.state === 'mute';
+  }
+
   @Input()
   size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' = 'md';
 
@@ -83,6 +93,6 @@ export class TextComponent {
   marginBottom: boolean | string = false;
 
   @Input()
-  state?: 'error';
+  state?: 'error' | 'success' | 'mute';
 
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
+import {NosleepService} from './common/nosleep.service';
 
 @Component({
   selector: 'twitch-client-root',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'chat';
+
+  @HostListener('keydown')
+  onKeydown() {
+    this.noSleep.enable();
+  }
+
+  @HostListener('click')
+  onClick() {
+    this.noSleep.enable();
+  }
+
+  constructor(private noSleep: NosleepService) {
+  }
 }

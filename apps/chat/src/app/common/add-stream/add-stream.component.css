@@ -1,0 +1,43 @@
+.stream-box {
+  gap: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.stream-box__question {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.stream-box__question-input {
+  color: var(--color-light);
+  border: 2px solid var(--color-light);
+  background-color: var(--color-dark);
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  padding-block: var(--spacing-xs);
+  padding-inline: var(--spacing-sm);
+}
+
+.stream-box__question-input:focus {
+  outline-style: solid;
+  outline-color: transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--color-dark), 0 0 0 4px var(--color-green);
+  transition: box-shadow 150ms ease-out;
+}
+
+.stream-box__question-input.ng-invalid.ng-touched {
+  border-color: var(--color-red);
+}
+
+.stream-box__question-input.ng-invalid.ng-touched:focus {
+  border: 2px solid var(--color-light);
+}
+
+.stream-box__submit {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: var(--spacing-md);
+}

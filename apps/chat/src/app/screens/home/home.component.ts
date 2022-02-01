@@ -1,39 +1,18 @@
-import {Component} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ChannelsService} from '../../common/channels.service';
-import {Router} from '@angular/router';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {ModalComponent} from '../../common/modal/modal.component';
 
 @Component({
   selector: 'twitch-client-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
 
-  form = new FormGroup({
-    stream: new FormControl('https://www.twitch.tv/geometricjim', [Validators.required]),
-  }, {
-    updateOn: 'blur',
-  })
+  @ViewChild(ModalComponent)
+  modal!: ModalComponent;
 
-  constructor(
-    private channelsService: ChannelsService,
-    private router: Router,
-  ) {
-  }
-
-  get stream(): AbstractControl | null {
-    return this.form.get('stream');
-  }
-
-  doSubmit() {
-    if (this.form.invalid || !this.stream) {
-      return
-    }
-
-    const streamName = this.stream.value;
-    this.channelsService.addChannel(streamName);
-    this.router.navigate(['/','screens']);
+  ngAfterViewInit() {
+    this.modal.open();
   }
 
 }

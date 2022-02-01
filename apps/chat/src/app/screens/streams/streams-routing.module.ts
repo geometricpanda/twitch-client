@@ -7,8 +7,14 @@ const Index: Route = {
   component: StreamsComponent,
 }
 
+const Stream: Route = {
+  path: ':id',
+  component: StreamsComponent,
+}
+
 const routes: Routes = [
   Index,
+  Stream,
 ];
 
 @NgModule({

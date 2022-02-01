@@ -1,0 +1,26 @@
+<ul class="stream" #chatContainer (scroll)="onScroll()">
+  <li class="stream__message" *ngFor="let line of messages | async | channel : streamId">
+    <ng-container [ngTemplateOutlet]="messageTemplate"
+                  [ngTemplateOutletContext]="{$implicit: line}"></ng-container>
+  </li>
+</ul>
+
+
+<ng-template #messageTemplate let-message>
+  <div class="stream__message-meta" #chatMessage>
+
+    <div class="stream__message-from" text size="lg" state="success"
+         [style.border-left-color]="message.color">
+      {{message.from}}
+    </div>
+
+    <div class="stream__message-timestamp" text size="sm" state="mute">
+      {{message.timestamp | date :'MMM d, y, h:mm:ss a'  }}
+    </div>
+
+  </div>
+
+  <div class="stream__message-details" text>
+    {{message.message}}
+  </div>
+</ng-template>

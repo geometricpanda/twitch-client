@@ -6,12 +6,12 @@
 
 :host(.text--size-sm) {
   font-size: var(--font-size-sm);
-  line-height: calc(var(--font-size-sm) * 1.2);
+  line-height: calc(var(--font-size-sm) * 1.5);
 }
 
 :host(.text--size-md) {
   font-size: var(--font-size-md);
-  line-height: calc(var(--font-size-md) * 1.2);
+  line-height: calc(var(--font-size-md) * 1.5);
 }
 
 :host(.text--size-lg) {
@@ -56,4 +56,12 @@
 
 :host(.text--state-error) {
   color: var(--color-red)
+}
+
+:host(.text--state-success) {
+  color: var(--color-green)
+}
+
+:host(.text--state-mute) {
+  color: var(--color-mediumlight)
 }

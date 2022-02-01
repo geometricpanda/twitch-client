@@ -1,7 +1,11 @@
 :host(.button) {
-  background-color: var(--color-green);
-  color: var(--color-dark);
-  border: 2px solid transparent;
+  --button-foreground: var(--color-dark);
+  --button-background: var(--color-green);
+
+  box-sizing: border-box;
+  background-color: var(--button-background);
+  color: var(--button-foreground);
+  border: 2px solid var(--button-foreground);
   padding-block: var(--spacing-xs);
   padding-inline: var(--spacing-xxl);
   font-family: var(--font-family);
@@ -9,10 +13,38 @@
   cursor: pointer;
 }
 
+:host(.button--outline) {
+  background-color: var(--button-foreground);
+  color: var(--button-background);
+  border-color: var(--button-background);
+}
+
+
+:host(.button--state-error) {
+  --button-background: var(--color-red);
+}
+
+
+:host(.button--state-warning) {
+  --button-background: var(--color-yellow);
+}
+
+
 :host(.button):focus {
   outline-style: solid;
   outline-color: transparent;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px var(--color-dark), 0 0 0 4px var(--color-green);
   transition: box-shadow 150ms ease-out;
+}
+
+:host(.button--round) {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  font-size: var(--font-size-lg);
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border-radius: 100%;
 }

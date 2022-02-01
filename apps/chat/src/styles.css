@@ -1,6 +1,8 @@
 @import "~modern-css-reset";
+@import '@angular/cdk/overlay-prebuilt.css';
 @import "./globals/index.css";
 
 body {
   background-color: var(--color-dark);
+  overflow: hidden;
 }

@@ -1,0 +1,42 @@
+.frame {
+  --frame-navigation-height: 5rem;
+  --frame-navigation-width: 15rem;
+}
+
+.frame__navigation {
+  background-color: var(--color-medium);
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: var(--frame-navigation-height);
+}
+
+.frame__body {
+  overflow: hidden;
+  position: fixed;
+  top: var(--frame-navigation-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media (min-width: 48em) {
+  .frame__navigation {
+    height: auto;
+    width: var(--frame-navigation-width);
+    top: 0;
+    bottom: 0;
+    right: unset;
+    left: 0;
+  }
+
+  .frame__body {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: var(--frame-navigation-width);
+  }
+}

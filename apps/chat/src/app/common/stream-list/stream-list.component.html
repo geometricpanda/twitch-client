@@ -1,0 +1,14 @@
+<ul class="streams">
+
+  <li *ngFor="let stream of streamsService.channels | async; let i = index"
+      class="streams__item">
+
+    <a class="stream"
+       [routerLink]="['/', 'streams', stream]"
+       routerLinkActive="stream--active">
+      {{stream}}
+    </a>
+
+  </li>
+
+</ul>

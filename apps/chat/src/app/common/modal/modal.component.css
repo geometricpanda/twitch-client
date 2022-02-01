@@ -1,0 +1,6 @@
+.modal {
+  background-color: var(--color-dark);
+  max-width: 600px;
+  border: 2px solid var(--color-medium);
+  padding: var(--spacing-md);
+}
