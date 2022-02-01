@@ -1,19 +1,20 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {filter, first, map, switchMap, tap} from 'rxjs';
+import {filter, first, map, Subscription, switchMap, tap} from 'rxjs';
 
 import {faAngleDoubleDown, faBan, faPlus} from '@fortawesome/free-solid-svg-icons';
 
 import {ModalComponent} from '../../common/modal/modal.component';
 import {StreamsService} from '../../common/streams.service';
 import {StreamComponent} from '../../common/stream/stream.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'twitch-client-streams',
   templateUrl: './streams.component.html',
   styleUrls: ['./streams.component.css'],
 })
-export class StreamsComponent {
+export class StreamsComponent implements OnInit, OnDestroy {
 
   faPlus = faPlus;
   faBan = faBan;
@@ -21,6 +22,8 @@ export class StreamsComponent {
 
   disableClose = false;
   pause = false;
+
+  stream$?: Subscription;
 
   @ViewChild(ModalComponent)
   addStreamModal?: ModalComponent;
@@ -36,7 +39,18 @@ export class StreamsComponent {
     private router: Router,
     private route: ActivatedRoute,
     private streamService: StreamsService,
+    private title: Title,
   ) {
+  }
+
+  ngOnInit() {
+    this.stream$ = this.activeId.subscribe(stream => {
+      this.title.setTitle(`${stream} :: Twitch Stream`)
+    })
+  }
+
+  ngOnDestroy() {
+    this.stream$?.unsubscribe();
   }
 
   openAddStream() {

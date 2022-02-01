@@ -1,15 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {StreamsService} from '../streams.service';
 import {Router} from '@angular/router';
-import {Title} from '@angular/platform-browser';
+import {StreamsService} from '../streams.service';
 
 @Component({
   selector: 'twitch-client-add-stream',
   templateUrl: './add-stream.component.html',
   styleUrls: ['./add-stream.component.css'],
 })
-export class AddStreamComponent implements OnInit {
+export class AddStreamComponent {
 
   @Input() withNavigation = false;
   @Output() done = new EventEmitter();
@@ -25,13 +24,7 @@ export class AddStreamComponent implements OnInit {
   constructor(
     private streamsService: StreamsService,
     private router: Router,
-    private title: Title,
   ) {
-  }
-
-
-  ngOnInit() {
-    this.title.setTitle('Twitch Stream :: Home')
   }
 
   doSubmit() {

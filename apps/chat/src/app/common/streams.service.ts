@@ -10,9 +10,7 @@ export class StreamsService {
 
   client?: Client;
 
-  private _channels: Array<string> = [
-  ];
-
+  private _channels: Array<string> = [];
   private _channels$ = new BehaviorSubject<Array<string>>(this._channels);
 
   public get channels() {
