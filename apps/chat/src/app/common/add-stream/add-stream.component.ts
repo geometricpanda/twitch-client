@@ -38,12 +38,10 @@ export class AddStreamComponent {
 
     const streamName = input[input.length - 1];
     this.streamsService.addChannel(streamName);
+    this.form.reset();
 
-    if (this.withNavigation) {
-      this.router.navigate(['/', 'streams', streamName]);
-    } else {
-      this.done.emit();
-    }
+    this.router.navigate(['/', 'streams', streamName]);
+    this.done.emit();
   }
 
   close() {

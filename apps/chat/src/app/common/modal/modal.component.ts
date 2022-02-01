@@ -1,6 +1,16 @@
-import {Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import {Overlay, OverlayRef} from '@angular/cdk/overlay';
 import {TemplatePortal} from '@angular/cdk/portal';
+import {hideOthers, Undo} from 'aria-hidden';
 
 @Component({
   selector: 'twitch-client-modal',
@@ -10,9 +20,14 @@ import {TemplatePortal} from '@angular/cdk/portal';
 export class ModalComponent implements OnInit, OnDestroy {
 
   @ViewChild('modal')
-  modalTemplate?: TemplateRef<null>
+  modalTemplate?: TemplateRef<null>;
+
+  @ViewChild('modalEl')
+  modalElement?: ElementRef<HTMLDivElement>;
 
   overlayRef?: OverlayRef;
+  previousEl?: Element | null;
+  undo: Undo = () => null;
 
   constructor(
     private overlay: Overlay,
@@ -31,6 +46,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.undo();
     this.overlayRef?.dispose();
   }
 
@@ -38,10 +54,24 @@ export class ModalComponent implements OnInit, OnDestroy {
     if (this.modalTemplate) {
       const modalContent = new TemplatePortal(this.modalTemplate, this._viewContainerRef);
       this.overlayRef?.attach(modalContent);
+
+      setTimeout(() => {
+
+        if (!this.modalElement?.nativeElement) {
+          return;
+        }
+
+        this.previousEl = document.activeElement;
+        const $el = this.modalElement.nativeElement;
+        $el.focus();
+        this.undo = hideOthers($el);
+      }, 100);
     }
   }
 
   close() {
+    this.undo();
+    (this.previousEl as HTMLElement)?.focus();
     this.overlayRef?.detach();
   }
 

@@ -1,6 +1,15 @@
 .modal {
   background-color: var(--color-dark);
   max-width: 600px;
+  margin: var(--spacing-md);
   border: 2px solid var(--color-medium);
   padding: var(--spacing-md);
+}
+
+.modal:focus {
+  outline-style: solid;
+  outline-color: transparent;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px var(--color-dark), 0 0 0 6px var(--color-green);
+  transition: box-shadow 150ms ease-out;
 }

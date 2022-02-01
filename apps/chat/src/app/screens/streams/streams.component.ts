@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {filter, first, map, Subscription, switchMap, tap} from 'rxjs';
 
@@ -34,6 +34,14 @@ export class StreamsComponent implements OnInit, OnDestroy {
   activeId = this.route
     .paramMap
     .pipe(map(params => params.get('id')))
+
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyPress($event: KeyboardEvent) {
+    if ($event.key === 'Escape') {
+      this.closeAddStream();
+    }
+  }
 
   constructor(
     private router: Router,
