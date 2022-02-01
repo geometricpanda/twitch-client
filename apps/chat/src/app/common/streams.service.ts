@@ -11,8 +11,6 @@ export class StreamsService {
   client?: Client;
 
   private _channels: Array<string> = [
-    'auronplay',
-    'Lana_Lux',
   ];
 
   private _channels$ = new BehaviorSubject<Array<string>>(this._channels);

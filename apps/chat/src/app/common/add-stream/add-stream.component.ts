@@ -19,7 +19,7 @@ export class AddStreamComponent implements OnInit {
   }
 
   form = new FormGroup({
-    stream: new FormControl('geometricjim', [Validators.required]),
+    stream: new FormControl('', [Validators.required]),
   }, {updateOn: 'submit'})
 
   constructor(
@@ -39,7 +39,11 @@ export class AddStreamComponent implements OnInit {
       return
     }
 
-    const streamName = this.stream.value;
+    const input = this.stream.value
+      .split('/')
+      .filter((segment: string) => segment !== '/');
+
+    const streamName = input[input.length - 1];
     this.streamsService.addChannel(streamName);
 
     if (this.withNavigation) {
