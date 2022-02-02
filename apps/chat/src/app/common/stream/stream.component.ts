@@ -12,6 +12,7 @@ import {
 
 import {StreamsService} from '../streams.service';
 import {filter, Subscription, throttleTime} from 'rxjs';
+import {StreamEvent} from '../stream.interface';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class StreamComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() streamId: string | null = null
   @Input() pause = false;
 
-  chatMessage$?: Subscription
+  chatMessage$?: Subscription;
+  StreamEvent = StreamEvent;
 
   messages = this.streamService
     .messages

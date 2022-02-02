@@ -10,6 +10,9 @@
   gap: var(--spacing-lg);
 }
 
+.stream__item {
+}
+
 .stream__message {
   display: flex;
   flex-direction: column;
@@ -22,10 +25,15 @@
   gap: var(--spacing-xs);
 }
 
-.stream__message-from {
+.stream__message--chat .stream__message-from {
   border-left: 3px solid var(--color-green);
   padding-left: var(--spacing-xs);
 }
+
+.stream__message--join .stream__message-from {
+
+}
+
 
 @media (min-width: 48em) {
 
@@ -34,6 +42,10 @@
     flex-direction: row;
     gap: var(--spacing-xxs);
     margin-bottom: var(--spacing-xs);
+  }
+
+  .stream__message--join .stream__message-meta {
+    margin-bottom: 0;
   }
 
   .stream__message-timestamp {

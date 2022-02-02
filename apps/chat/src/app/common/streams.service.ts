@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, map, tap} from 'rxjs';
+import {BehaviorSubject, map, noop, tap} from 'rxjs';
 import {ChatUserstate, Client} from 'tmi.js';
-import {StreamEvent, StreamEvents, StreamMessage} from './stream.interface';
+import {StreamChat, StreamEvent, StreamEvents, StreamMessage} from './stream.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +30,42 @@ export class StreamsService {
     .pipe(tap((client) => client.connect()))
     .pipe(tap((client) => this.client = client))
     .subscribe((client: Client) => {
-      client.on('message', (...props) => this.onMessage(...props));
+      client.on('action', (...props) => console.log('action', ...props));
+      client.on('anongiftpaidupgrade', (...props) => console.log('anongiftpaidupgrade', ...props));
+      client.on('anonsubmysterygift', (...props) => console.log('anonsubmysterygift', ...props));
+      client.on('anonsubgift', (...props) => console.log('anonsubgift', ...props));
+      client.on('automod', (...props) => console.log('automod', ...props));
+      client.on('ban', (...props) => console.log('ban', ...props));
+      client.on('chat', (...props) => this.onChat(...props));
+      client.on('clearchat', (...props) => console.log('clearchat', ...props));
+      client.on('emoteonly', (...props) => console.log('emoteonly', ...props));
+      client.on('emotesets', (...props) => console.log('emoteonly', ...props));
+      client.on('followersonly', (...props) => console.log('followersonly', ...props));
+      client.on('giftpaidupgrade', (...props) => console.log('giftpaidupgrade', ...props));
+      client.on('hosted', (...props) => console.log('hosted', ...props));
+      client.on('hosting', (...props) => console.log('hosting', ...props));
+      client.on('join', (...props) => this.onJoin(...props));
+      client.on('message', noop);
+      client.on('messagedeleted', (...props) => console.log('messagedeleted', ...props));
+      client.on('mod', (...props) => console.log('mod', ...props));
+      client.on('mods', (...props) => console.log('mods', ...props));
+      client.on('notice', (...props) => console.log('notice', ...props));
+      client.on('part', (...props) => console.log('part', ...props));
+      client.on('primepaidupgrade', (...props) => console.log('primepaidupgrade', ...props));
+      client.on('raided', (...props) => console.log('raided', ...props));
+      client.on('redeem', (...props) => console.log('redeem', ...props));
+      client.on('resub', (...props) => console.log('resub', ...props));
+      client.on('roomstate', noop);
+      client.on('slowmode', (...props) => console.log('slowmode', ...props));
+      client.on('subgift', (...props) => console.log('subgift', ...props));
+      client.on('submysterygift', (...props) => console.log('submysterygift', ...props));
+      client.on('subscribers', (...props) => console.log('subscribers', ...props));
+      client.on('subscription', (...props) => console.log('subscription', ...props));
+      client.on('timeout', (...props) => console.log('timeout', ...props));
+      client.on('unhost', (...props) => console.log('unhost', ...props));
+      client.on('unmod', (...props) => console.log('unmod', ...props));
+      client.on('vips', (...props) => console.log('vips', ...props));
+      client.on('whisper', (...props) => console.log('whisper', ...props));
     });
 
   private addMessage(message: StreamEvents) {
@@ -52,8 +87,8 @@ export class StreamsService {
     this._channels$.next(this._channels);
   }
 
-  private onMessage(channel: string, userstate: ChatUserstate, message: string, _self: boolean) {
-    const line: StreamMessage = {
+  private onChat(channel: string, userstate: ChatUserstate, message: string, _self: boolean) {
+    const event: StreamMessage = {
       type: StreamEvent.Message,
       from: userstate['display-name'],
       color: userstate['color'],
@@ -62,7 +97,21 @@ export class StreamsService {
       message,
     };
 
-    this.addMessage(line);
+    this.addMessage(event);
+  }
+
+  private onJoin(channel: string, from: string, _self: boolean) {
+    console.log(channel, from, _self);
+    if (_self) {
+      return;
+    }
+    console.log(channel, from);
+    const event: StreamChat = {
+      type: StreamEvent.Join,
+      channel,
+      from,
+    }
+    this.addMessage(event);
   }
 
 }

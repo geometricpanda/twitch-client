@@ -1,26 +1,48 @@
 <ul class="stream" #chatContainer (scroll)="onScroll()">
-  <li class="stream__message" *ngFor="let line of messages | async | channel : streamId">
-    <ng-container [ngTemplateOutlet]="messageTemplate"
-                  [ngTemplateOutletContext]="{$implicit: line}"></ng-container>
+  <li class="stream__item"
+      *ngFor="let line of messages | async | channel : streamId"
+      #chatMessage>
+
+    <ng-container [ngSwitch]="line.type">
+      <ng-container *ngSwitchCase="StreamEvent.Message"
+                    [ngTemplateOutlet]="chatTemplate"
+                    [ngTemplateOutletContext]="{$implicit: line}"></ng-container>
+
+      <ng-container *ngSwitchCase="StreamEvent.Join"
+                    [ngTemplateOutlet]="joinTemplate"
+                    [ngTemplateOutletContext]="{$implicit: line}"></ng-container>
+    </ng-container>
   </li>
 </ul>
 
 
-<ng-template #messageTemplate let-message>
-  <div class="stream__message-meta" #chatMessage>
+<ng-template #chatTemplate let-chat>
+  <div class="stream__message stream__message--chat">
+    <div class="stream__message-meta">
 
-    <div class="stream__message-from" text size="lg" state="success"
-         [style.border-left-color]="message.color">
-      {{message.from}}
+      <div class="stream__message-from" text size="md" state="success"
+           [style.border-left-color]="chat.color">
+        {{chat.from}}
+      </div>
+
+      <div class="stream__message-timestamp" text size="sm" state="mute">
+        {{chat.timestamp | date :'MMM d, y, h:mm:ss a'  }}
+      </div>
+
     </div>
 
-    <div class="stream__message-timestamp" text size="sm" state="mute">
-      {{message.timestamp | date :'MMM d, y, h:mm:ss a'  }}
+    <div class="stream__message-details" text>
+      {{chat.message}}
     </div>
-
   </div>
+</ng-template>
 
-  <div class="stream__message-details" text>
-    {{message.message}}
+<ng-template #joinTemplate let-join>
+  <div class="stream__message stream__message--join">
+    <div class="stream__message-meta">
+      <div class="stream__message-from" text size="sm" state="success">
+        {{join.from}} <span text size="sm" state="mute">Just joined the party!</span>
+      </div>
+    </div>
   </div>
 </ng-template>
